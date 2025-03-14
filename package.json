@@ -1,6 +1,7 @@
 {
     "name": "rest-to-mcp",
     "version": "0.0.1",
+    "description": "A bridge that enables any LLM to access and interact with documented REST APIs through the Model Context Protocol (MCP).",
     "dependencies": {
         "@modelcontextprotocol/sdk": "1.7.0",
         "zod": "3.24.2"
