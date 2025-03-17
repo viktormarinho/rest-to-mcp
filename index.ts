@@ -10,12 +10,14 @@ const server = new McpServer({
 server.tool("make-request", {
   url: z.string(),
   method: z.enum(["GET", "POST", "PUT", "DELETE"]),
+  headers: z.record(z.string(), z.string()).optional(),
   reqBody: z.string().optional(),
-}, async ({ url, method, reqBody }) => {
+}, async ({ url, method, headers, reqBody }) => {
   const response = await fetch(url, {
     method,
     headers: {
       "Content-Type": "application/json",
+      ...headers,
     },
     body: method !== "GET" ? reqBody : undefined,
   });
