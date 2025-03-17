@@ -4,7 +4,7 @@ import { z } from "zod";
 
 const server = new McpServer({
   name: "rest-to-mcp",
-  version: "0.0.1",
+  version: "0.0.2",
 });
 
 server.tool("make-request", {
@@ -35,15 +35,16 @@ server.tool(
   "discover-endpoints",
   {
     url: z.string(),
+    path: z.string().optional().describe("If the user provides a path, it will be used instead of the default paths."),
   },
-  async ({ url }) => {
+  async ({ url, path }) => {
     // Try multiple possible API specification paths
-    const possiblePaths = [
+    const possiblePaths = path ? [path] : [
       "/openapi.json",
       "/swagger.json",
       "/swagger/v1/swagger.json",
       "/api-docs",
-      "/api-docs.json"
+      "/api-docs.json",
     ];
     
     let openApiSpec;
